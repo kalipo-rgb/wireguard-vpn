@@ -1,7 +1,5 @@
 # Tutorial: Desplegament d'una VPN amb WireGuard a AWS
 
-**Nivell:** Intermedi  
-**Temps estimat:** 30–45 minuts  
 **Requisits:** Compte AWS (Free Tier), màquina Kali Linux, connexió a internet
 
 ---
@@ -68,7 +66,6 @@ sudo cat /etc/wireguard/server_private.key
 sudo cat /etc/wireguard/server_public.key
 ```
 
-> ⚠️ **Important:** Guarda les dues claus. Les necessitaràs als passos següents.
 
 ### Pas 6 — Activar el reenviament d'IP
 
@@ -99,7 +96,7 @@ PublicKey = CLAU_PUBLICA_CLIENT
 AllowedIPs = 10.8.0.2/32
 ```
 
-> 💡 **Nota:** La interfície de xarxa a AWS sol ser `ens5`. Pots verificar-ho amb `ip route | grep default`.
+> **Nota:** La interfície de xarxa a AWS sol ser `ens5`. Pots verificar-ho amb `ip route | grep default`.
 
 ---
 
@@ -184,7 +181,7 @@ Hauries de veure el peer del client llistat amb `allowed ips: 10.8.0.2/32`.
 
 ### Pas 14 — Connectar la VPN des de Kali
 
-> ⚠️ **Ordre important:** Primer obre el SSH, després activa la VPN.
+> **Ordre important:** Primer obre el SSH, després activa la VPN.
 
 **Terminal 1 — connecta't al servidor:**
 ```bash
@@ -279,7 +276,7 @@ sudo wg show
 
 ---
 
-## Resolució de problemes habituals
+## Resolució de problemes habituals (FAQ)
 
 | Problema | Solució |
 |----------|---------|
