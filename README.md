@@ -129,6 +129,12 @@ Anota la IP que apareix després de `via` (per exemple `192.168.1.1`).
 ### Pas 11 — Crear la configuració del client
 
 ```bash
+sudo nano /usr/local/bin/vpn-route.sh
+```
+
+###
+
+```bash
 sudo nano /etc/wireguard/wg0.conf
 ```
 
@@ -137,12 +143,8 @@ sudo nano /etc/wireguard/wg0.conf
 Address = 10.8.0.2/24
 PrivateKey = CLAU_PRIVADA_CLIENT
 DNS = 1.1.1.1
-PostUp = ip route add <IP_PUBLICA_EC2>/32 via <PORTA_ENLLAÇ_LOCAL>
-PostUp = iptables -A OUTPUT -d <IP_PUBLICA_EC2> -p tcp --dport 22 -j ACCEPT
-PostUp = iptables -A OUTPUT -d <IP_PUBLICA_EC2> -o wg0 -j DROP
-PreDown = ip route del <IP_PUBLICA_EC2>/32
-PreDown = iptables -D OUTPUT -d <IP_PUBLICA_EC2> -p tcp --dport 22 -j ACCEPT
-PreDown = iptables -D OUTPUT -d <IP_PUBLICA_EC2> -o wg0 -j DROP
+PostUp = /usr/local/bin/vpn-route.sh up
+PreDown = /usr/local/bin/vpn-route.sh down
 
 [Peer]
 PublicKey = CLAU_PUBLICA_SERVIDOR
