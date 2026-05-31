@@ -132,7 +132,27 @@ Anota la IP que apareix després de `via` (per exemple `192.168.1.1`).
 sudo nano /usr/local/bin/vpn-route.sh
 ```
 
-###
+```ìni
+#!/bin/bash
+GATEWAY=$(ip route | awk '/default/ {print $3; exit}')
+EC2_IP="<IP_PUBLICA_EC2>"
+
+if [ "$1" == "up" ]; then
+    ip route add $EC2_IP/32 via $GATEWAY
+    iptables -A OUTPUT -d $EC2_IP -p tcp --dport 22 -j ACCEPT
+    iptables -A OUTPUT -d $EC2_IP -o wg0 -j DROP
+elif [ "$1" == "down" ]; then
+    ip route del $EC2_IP/32
+    iptables -D OUTPUT -d $EC2_IP -p tcp --dport 22 -j ACCEPT
+    iptables -D OUTPUT -d $EC2_IP -o wg0 -j DROP
+fi
+```
+Converteix el fitxer en un executable
+
+```bash
+sudo chmod +x /usr/local/bin/vpn-route.sh
+```
+Crea la teva configuració de WireGuard com a client
 
 ```bash
 sudo nano /etc/wireguard/wg0.conf
@@ -153,7 +173,7 @@ AllowedIPs = 0.0.0.0/1, 128.0.0.0/1
 PersistentKeepalive = 25
 ```
 
-Substitueix els valors entre `< >` pels teus valors reals.
+Recorda substituir els valors entre `< >` pels teus valors reals.
 
 ---
 
