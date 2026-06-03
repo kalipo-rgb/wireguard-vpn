@@ -282,17 +282,6 @@ sudo wg show
 
 ---
 
-## Resum de recursos AWS utilitzats
-
-| Recurs | Descripció | Cost (Free Tier) |
-|--------|-----------|-----------------|
-| EC2 t3.micro | Servidor VPN | 750 h/mes gratuïtes |
-| EBS 8GB gp2 | Emmagatzematge | Inclòs (fins 30GB) |
-| Elastic IP | IP estàtica | Gratuïta si associada |
-| Transferència dades | Tràfic sortint | 100 GB/mes gratuïts |
-
----
-
 ## Resolució de problemes habituals (FAQ)
 
 | Problema | Solució |
