@@ -1,0 +1,13 @@
+#!/bin/bash
+GATEWAY=$(ip route | awk '/default/ {print $3; exit}')
+EC2_IP="<IP_PUBLICA_EC2>"
+
+if [ "$1" == "up" ]; then
+    ip route add $EC2_IP/32 via $GATEWAY
+    iptables -A OUTPUT -d $EC2_IP -p tcp --dport 22 -j ACCEPT
+    iptables -A OUTPUT -d $EC2_IP -o wg0 -j DROP
+elif [ "$1" == "down" ]; then
+    ip route del $EC2_IP/32
+    iptables -D OUTPUT -d $EC2_IP -p tcp --dport 22 -j ACCEPT
+    iptables -D OUTPUT -d $EC2_IP -o wg0 -j DROP
+fi
