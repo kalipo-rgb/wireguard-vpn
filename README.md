@@ -292,4 +292,4 @@ sudo wg show
 | `wg show` no mostra cap peer | Afegeix el peer al `wg0.conf` del servidor i reinicia |
 | `resolvconf: command not found` | Executa `sudo apt install -y resolvconf` |
 | La IP pública no és la de l'EC2 | Normal amb `AllowedIPs = 0.0.0.0/1, 128.0.0.0/1`; el tràfic igualment passa pel túnel |
-| La VPN funciona a algunes xarxes i a unes altres no | Algunes xarxes (eduoram) bloquejen el trafic UDP. Canvia el ListeningPort de 51820 -> 443 tant al client com al servidor |
+| La VPN funciona a algunes xarxes i a unes altres no | Algunes xarxes (eduoram) bloquejen el trafic `UDP`. Canvia el `ListeningPort` de `51820` -> `443` tant al client com al servidor |
