@@ -66,7 +66,6 @@ sudo cat /etc/wireguard/server_private.key
 sudo cat /etc/wireguard/server_public.key
 ```
 
-
 ### Pas 6 — Activar el reenviament d'IP
 
 ```bash
@@ -126,7 +125,7 @@ ip route | grep default
 
 Anota la IP que apareix després de `via` (per exemple `192.168.1.1`).
 
-### Pas 11 — Crear la configuració del client
+### Pas 12 — Crear el script vpn-route.sh
 
 ```bash
 sudo nano /usr/local/bin/vpn-route.sh
@@ -152,6 +151,9 @@ Converteix el fitxer en un executable
 ```bash
 sudo chmod +x /usr/local/bin/vpn-route.sh
 ```
+
+### Pas 11 — Crear la configuració del client
+
 Crea la teva configuració de WireGuard com a client
 
 ```bash
@@ -166,6 +168,7 @@ DNS = 1.1.1.1
 PostUp = /usr/local/bin/vpn-route.sh up
 PreDown = /usr/local/bin/vpn-route.sh down
 
+
 [Peer]
 PublicKey = CLAU_PUBLICA_SERVIDOR
 Endpoint = <IP_PUBLICA_EC2>:51820
@@ -177,15 +180,7 @@ Recorda substituir els valors entre `< >` pels teus valors reals.
 
 ---
 
-## Part 4 — Afegir el client com a peer al servidor
-
-### Pas 12 — Afegir el peer al servidor (EC2)
-
-Al terminal SSH del servidor:
-
-```bash
-sudo wg set wg0 peer <CLAU_PUBLICA_CLIENT> allowed-ips 10.8.0.2/32
-```
+## Part 4 — Iniciar Servidor
 
 ### Pas 13 — Iniciar WireGuard al servidor amb systemd
 
